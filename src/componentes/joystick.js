@@ -14,11 +14,11 @@ export default class VirtualJoystickComponent {
     this.joyStick = this.scene.plugins
       .get("rexvirtualjoystickplugin")
       .add(this, {
-        x: 400,
-        y: 300,
-        radius: 100,
-        base: this.scene.add.circle(0, 0, 100, 0x888888),
-        thumb: this.scene.add.circle(0, 0, 50, 0xcccccc),
+        x: 175,
+        y: 500,
+        radius: 60,
+        base: this.scene.add.circle(0, 0, 60, 0x888888),
+        thumb: this.scene.add.circle(0, 0, 20, 0xcccccc),
       })
       .on("update", this.handleJoystickUpdate, this);
   }

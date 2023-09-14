@@ -7,6 +7,8 @@ import Informacion from "./scenes/Informacion";
 import Preload from "./scenes/Preload";
 import Ranking from "./scenes/Ranking";
 import VirtualJoyStickPlugin from "./componentes/joystick";
+import Jugador from "./componentes/jugador";
+
 const config = {
   type: Phaser.AUTO,
   width: 350,
@@ -27,7 +29,7 @@ const config = {
     default: "arcade",
     arcade: {
       gravity: { y: 200 },
-      debug: false,
+      debug: true,
     },
   },
   scene: [Preload, HelloWorldScene, UI, Informacion, Menu, Ranking],

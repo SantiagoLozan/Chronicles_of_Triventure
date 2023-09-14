@@ -1,9 +1,9 @@
-import Phaser, { Scene } from "phaser";
+import Phaser from "phaser";
 
 export default class Jugador extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, sprite, vida, ataque, velocidadAtaque) {
     super(scene, x, y, sprite); // Llama al constructor de la clase padre (Sprite)
-    this.sprite = [];
+    this.sprite = ["player"];
     this.vida = vida;
     this.ataque = ataque;
     this.velocidadAtaque = velocidadAtaque;
