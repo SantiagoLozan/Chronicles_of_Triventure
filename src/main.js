@@ -6,6 +6,8 @@ import Menu from "./scenes/Menu";
 import Informacion from "./scenes/Informacion";
 import Preload from "./scenes/Preload";
 import Ranking from "./scenes/Ranking";
+import VirtualJoyStickPlugin from "./componentes/joystick";
+import Jugador from "./componentes/jugador";
 
 const config = {
   type: Phaser.AUTO,
@@ -26,11 +28,19 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 200 },
-      debug: false,
+      debug: true,
     },
   },
   scene: [Preload, HelloWorldScene, UI, Informacion, Menu, Ranking],
+  plugins: {
+    global: [
+      {
+        key: "rexVirtualJoyStick",
+        plugin: VirtualJoyStickPlugin,
+        start: true,
+      },
+    ],
+  },
 };
 
 export default new Phaser.Game(config);
