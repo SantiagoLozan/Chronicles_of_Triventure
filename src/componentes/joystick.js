@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+
 export default class VirtualJoystickComponent {
   constructor(scene, jugador) {
     // La escena se pasa como argumento para poder usarla si es necesario
@@ -11,7 +12,7 @@ export default class VirtualJoystickComponent {
     this.scene.load.plugin("rexvirtualjoystickplugin", url, true);
 
     // Crea el joystick virtual
-    this.joyStick = this.scene.plugins
+    this.joystick = this.scene.plugins
       .get("rexvirtualjoystickplugin")
       .add(this, {
         x: 175,
@@ -19,13 +20,21 @@ export default class VirtualJoystickComponent {
         radius: 60,
         base: this.scene.add.circle(0, 0, 60, 0x888888),
         thumb: this.scene.add.circle(0, 0, 20, 0xcccccc),
+        dir: 3,
+        forceMin: 1,
+        fixed: true,
+        enable: true,
       })
       .on("update", this.handleJoystickUpdate, this);
+    this.joystickCursors = this.joystick.createCursorKeys();
+  }
+  getJoystickCursors() {
+    return this.joystickCursors;
   }
 
   handleJoystickUpdate() {
-    // Obtén la dirección del joystick
-    const direction = this.joyStick.force > 0 ? this.joyStick.angle : null;
+    // Obtén la dirección del joystick en grados
+    const direction = this.joystick.angle;
 
     // Define la velocidad de movimiento del jugador
     const velocidad = 5; // Ajusta esto según tu juego

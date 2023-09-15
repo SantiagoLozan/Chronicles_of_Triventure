@@ -15,6 +15,7 @@ export default class Precarga extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32,
     });
+
     this.enter = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.ENTER
     );
@@ -27,6 +28,8 @@ export default class Precarga extends Phaser.Scene {
 
   create() {
     this.botonEnter = this.add.image(175, 525, "enter").setScale(0.5);
+    this.cursors = this.input.keyboard.createCursorKeys();
+
     this.anims.create({
       key: "left",
       frames: this.anims.generateFrameNumbers("player", { start: 4, end: 7 }),
