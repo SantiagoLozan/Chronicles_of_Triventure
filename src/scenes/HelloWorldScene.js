@@ -21,7 +21,7 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   create() {
-    //this.add.image(400, 300, "sky");
+    this.add.image(150, 300, "mapa");
 
     this.player = new Jugador(this, 250, 350, "player", 5, 1, 1);
     this.joystick = new VirtualJoystickComponent(this, this.player);
