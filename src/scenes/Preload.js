@@ -28,6 +28,7 @@ export default class Precarga extends Phaser.Scene {
 
   create() {
     this.botonEnter = this.add.image(175, 525, "enter").setScale(0.5);
+    this.add.text(70, 100, "Chronicles of Triventure");
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.anims.create({
