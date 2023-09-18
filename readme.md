@@ -1,5 +1,4 @@
 Entregas parciales
-
 Entrega 18/09
 
 Flujo de escenas. 
@@ -11,32 +10,39 @@ Jugador. Tener, al menos, una mecanica desarrollada: desplazamiento, salto, disp
 Nivel diseñado o en proceso. NO se requiere que este integrado.
 Escena UI. Integrar a escena principal. Tener texto representativo.
 
-Start development server:
+Para probar Chronicles of Triventure deberas teber [Node.js](https://nodejs.org/en/), [npm](https://www.npmjs.com/) y [Parcel](https://parceljs.org/) instalados.
 
+Para instalar Node.js and `npm` with `nvm` debes hacer lo siguiente:
+
+En una terminal de comandos (CMD, PowerShell, etc), debes escribir lo siguiente :
+``` 
+nvm install node
+
+nvm use node
+```
+
+Luego instalar Parcel: 
+```
+npm install -g parcel-bundler
+```
+
+Creamos una carpeta en el escritorio, la abrimos y escribimos `cmd` en el nombre.
+Luego debemos clonar el repositorio dentro de la carpeta elegida. Para eso en la terminal escribimos:
+```
+git clone https://github.com/SantiagoLozan/Chronicles_of_Triventure.git 
+```
+luego escribimos
+```
+cd Chronicles_of_Triventure
+npm install
+```
+
+Por ultimo escribimos
 ```
 npm run start
 ```
 
-To create a production build:
+y el juego se verá en 
 
-```
-npm run build
-```
-
-Production files will be placed in the `dist` folder. Then upload those files to a web server. 🎉
-
-## Project Structure
-
-```
-    .
-    ├── dist
-    ├── node_modules
-    ├── public
-    ├── src
-    │   ├── scenes
-    │   │   ├── HelloWorldScene.js
-    │   ├── index.html
-    │   ├── main.js
-    ├── package.json
-```
+http://localhost:8000/
 
