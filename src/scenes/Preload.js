@@ -7,6 +7,7 @@ export default class Precarga extends Phaser.Scene {
 
   preload() {
     this.load.image("sky", "assets/skies/space3.png");
+    this.load.image("mapa", "assets/images/nivel1.png");
     this.load.image("botonMenu", "assets/images/botonMenu.png");
     this.load.image("botonAtras", "assets/images/botonAtras.png");
     this.load.image("botonInfo", "assets/images/botonInfo.png");
@@ -28,6 +29,7 @@ export default class Precarga extends Phaser.Scene {
 
   create() {
     this.botonEnter = this.add.image(175, 525, "enter").setScale(0.5);
+    this.add.text(70, 100, "Chronicles of Triventure");
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.anims.create({
