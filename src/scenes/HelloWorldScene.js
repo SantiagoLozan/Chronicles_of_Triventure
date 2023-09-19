@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-import events from "./EventCenter";
+import Jugador from "../componentes/jugador";
+import VirtualJoystickComponent from "../componentes/joystick";
 
 // Manejador de eventos centralizados para comunicacion de componentes
 
@@ -19,52 +20,34 @@ export default class HelloWorldScene extends Phaser.Scene {
     super("hello-world");
   }
 
-  preload() {
-    this.load.image("sky", "assets/skies/space3.png");
-    this.load.image("logo", "assets/sprites/phaser3-logo.png");
-    this.load.atlas(
-      "match3",
-      "assets/atlas/match3.png",
-      "assets/atlas/match3.json"
-    );
-  }
-
   create() {
-    this.add.image(400, 300, "sky");
+    this.add.image(150, 300, "mapa");
 
-    const emitter = this.add.particles(0, 0, "match3", {
-      frame: ["Match3_Icon_30", "Match3_Icon_29"],
-      lifespan: 4000,
-      speed: { min: 200, max: 350 },
-      scale: { start: 0.4, end: 0 },
-      rotate: { start: 0, end: 360 },
-      gravityY: 200,
-      emitting: false,
-    });
+    this.player = new Jugador(this, 250, 350, "player", 5, 1, 1);
+    this.joystick = new VirtualJoystickComponent(this, this.player);
+    this.joystickCursors = this.joystick.joystickCursors;
 
-    const logo = this.physics.add.image(400, 100, "logo");
-
-    logo.setVelocity(100, 200);
-    logo.setBounce(1, 1);
-    logo.setCollideWorldBounds(true);
-
-    emitter.emitParticleAt(logo.x, logo.y, 4);
-
-    // add green rectangle for collider and asign physics
-    const floor = this.add.rectangle(400, 600, 800, 20, 0x00ff00);
-    this.physics.add.existing(floor, true);
+    this.physics.world.setBounds(0, 0, 350, 600);
 
     // launch UI scene
     this.scene.launch("ui");
+    this.botonAtras = this.add.image(75, 525, "botonAtras").setScale(0.2);
+    this.botonInfo = this.add.image(325, 525, "botonInfo").setScale(0.2);
+    this.botonMenu = this.add.image(150, 350, "botonMenu").setScale(0.6);
+  }
 
-    // add collider with floor
-    this.physics.add.collider(logo, floor, () => {
-      console.log("collider-event");
-
-      // Event emitter
-      events.emit("collider-event", {
-        fecha: new Date().toLocaleTimeString(),
-      });
-    });
+  update() {
+    if (this.joystickCursors.up.isDown) {
+      this.player.movimientoPersonaje(0, -1);
+    } else if (this.joystickCursors.down.isDown) {
+      this.player.movimientoPersonaje(0, 1);
+    } else if (this.joystickCursors.left.isDown) {
+      this.player.movimientoPersonaje(-1, 0);
+    } else if (this.joystickCursors.right.isDown) {
+      this.player.movimientoPersonaje(1, 0);
+    } else {
+      this.player.movimientoPersonaje(0, 0);
+    }
+    console.log(this.joystickCursors);
   }
 }
