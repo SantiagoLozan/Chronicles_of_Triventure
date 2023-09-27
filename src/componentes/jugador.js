@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export default class Jugador extends Phaser.GameObjects.Sprite {
+export default class Jugador extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, sprite, vida, ataque, velocidadAtaque) {
     super(scene, x, y, sprite); // Llama al constructor de la clase padre (Sprite)
     scene.add.existing(this);
@@ -11,8 +11,10 @@ export default class Jugador extends Phaser.GameObjects.Sprite {
     this.velocidadAtaque = velocidadAtaque;
     this.x = x;
     this.y = y;
+    this.setCollideWorldBounds(true);
   }
 
+  
   ataquePersonaje(enemigo) {
     // Realiza el ataque al enemigo
     enemigo.recibirAtaque(this.ataque);

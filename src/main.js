@@ -10,13 +10,13 @@ import VirtualJoyStickPlugin from "./componentes/joystick";
 
 const config = {
   type: Phaser.AUTO,
-  width: 350,
+  width: 400,
   height: 600,
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     min: {
-      width: 350,
+      width: 400,
       height: 600,
     },
     max: {
