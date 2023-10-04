@@ -1,4 +1,7 @@
-const NIVELES = [
+const NIVELES = 
+[{
+        tiled : "testcolision"
+},
     {
         tiled : "nivel1"
     },
