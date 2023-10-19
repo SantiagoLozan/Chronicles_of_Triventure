@@ -28,6 +28,7 @@ const config = {
     default: "arcade",
     arcade: {
       debug: true,
+      gravity: {y: 200},
     },
   },
   scene: [Preload, HelloWorldScene, UI, Informacion, Menu, Ranking],

@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+//import Bullets from './bullets.js';
+
 
 export default class Jugador extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, sprite, vida, ataque, velocidadAtaque) {
@@ -12,36 +14,47 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     this.x = x;
     this.y = y;
     this.setCollideWorldBounds(true);
+    this.body.allowGravity = false;
+    //this.bullets = new Bullets(this);
   }
 
   
-  ataquePersonaje(enemigo) {
-    // Realiza el ataque al enemigo
-    enemigo.recibirAtaque(this.ataque);
-  }
+  /*ataquePersonaje() {
+
+  }*/
 
   movimientoPersonaje(dx, dy) {
-    // Mueve al personaje en la dirección especificada (dx, dy)
-    this.x += dx;
-    this.y += dy;
+    
+
+    const velocidad = 4;
+    const velocidadX = velocidad * dx
+    const velocidadY = velocidad * dy
+
     if (dx < 0) {
+      this.setVelocityX(velocidadX);
       this.anims.play("left", true);
     } else if (dx > 0) {
+      this.setVelocityX(velocidadX);
       this.anims.play("right", true);
     } else if (dy < 0) {
+      this.setVelocityY(velocidadY);
       this.anims.play("up", true);
     } else if (dy > 0) {
+      this.setVelocityY(velocidadY);
       this.anims.play("down", true);
     } else {
       // Si no se está moviendo, detén la animación
       this.anims.stop();
+      this.setVelocity(0, 0);
+
+      //this.bullets.fireBullet(this.x, this.y - 10);
     }
   }
 
   muertePersonaje() {
     // Maneja la lógica de la muerte del personaje
     if (this.vida <= 0) {
-      console.log("El personaje ha muerto");
+      
       // Puedes agregar aquí más lógica relacionada con la muerte del personaje
     }
   }

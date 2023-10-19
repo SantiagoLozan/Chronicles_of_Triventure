@@ -13,12 +13,12 @@ export default class VirtualJoystickComponent {
     this.joystick = this.scene.plugins
       .get("rexvirtualjoystickplugin")
       .add(this, {
-        x: 175,
-        y: 500,
+        x: 200,
+        y: 550,
         radius: 60,
-        base: this.scene.add.circle(0, 0, 60, 0x888888),
+        base: this.scene.add.circle(0, 0, 35, 0x888888),
         thumb: this.scene.add.circle(0, 0, 20, 0xcccccc),
-        dir: 3,
+        dir: 2,
         forceMin: 1,
         fixed: true,
         enable: true,
@@ -36,7 +36,7 @@ export default class VirtualJoystickComponent {
     const direction = this.joystick.angle;
 
     // Define la velocidad de movimiento del jugador
-    const velocidad = 5; // Ajusta esto según tu juego
+    const velocidad = 4; // Ajusta esto según tu juego
 
     // Mueve al jugador en la dirección del joystick
     if (direction !== null) {
