@@ -12,10 +12,25 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("botonAtras", "assets/images/botonAtras.png");
     this.load.image("botonInfo", "assets/images/botonInfo.png");
     this.load.image("enter", "assets/images/teclaEnter.png");
+    this.load.image("background", "assets/capturas/1.png");
+    this.load.image("china", "assets/images/china.png");
+    this.load.image("brasil", "assets/images/brasil.png");
+    this.load.image("usa", "assets/images/unitedstates.png");
+    this.load.image("spain", "assets/images/spain.png");
+    this.load.image("unraf", "assets/images/unraf.png");
+    this.load.image("phaser", "assets/images/phaser.png");
+    this.load.image("boton", "assets/images/boton.png");
+    this.load.image("enemigo", "assets/images/enemy.png");
+    this.load.image("enemigo2", "assets/images/enemy2.png");
     this.load.tilemapTiledJSON("nivel1", "assets/niveles/nivel1.json");
     this.load.tilemapTiledJSON("nivel2", "assets/niveles/nivel2.json");
     this.load.tilemapTiledJSON("nivel3", "assets/niveles/nivel3.json");
     this.load.tilemapTiledJSON("nivel4", "assets/niveles/nivel4.json");
+    this.load.tilemapTiledJSON(
+      "testcolision",
+      "assets/niveles/testcolision.json"
+    );
+    this.load.image("grid", "assets/images/gridtiles.png");
     this.load.image("imagen", "assets/images/top-down-forest-tileset.png");
     this.load.image("imagen2", "assets/images/top-down-forest-tileset.png");
     this.load.spritesheet("player", "assets/images/player.png", {
@@ -34,8 +49,13 @@ export default class Precarga extends Phaser.Scene {
   }
 
   create() {
-    this.botonEnter = this.add.image(175, 525, "enter").setScale(0.5);
-    this.add.text(70, 100, "Chronicles of Triventure");
+    this.add.image(200, 300, "background");
+    this.banderaChina = this.add.image(70, 300, "brasil").setScale(0.24);
+    this.banderaUsa = this.add.image(200, 300, "usa").setScale(0.24);
+    this.banderaSpain = this.add.image(330, 300, "spain").setScale(0.24);
+    this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
+    this.botonPhaser = this.add.image(145, 500, "phaser").setScale(0.39);
+
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.anims.create({
@@ -67,12 +87,31 @@ export default class Precarga extends Phaser.Scene {
   }
 
   update() {
-    this.botonEnter
+    this.banderaUsa
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => this.arranqueMenu());
+    this.banderaChina
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => this.arranqueMenu());
+    this.banderaSpain
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => this.arranqueMenu());
+    this.logoUnraf
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => {
+        window.open("https://www.unraf.edu.ar/", "_blank");
+      });
+    this.botonPhaser
+      .setInteractive({ useHandCursor: true })
+      .on("pointerdown", () => {
+        window.open(
+          "https://github.com/SantiagoLozan/Phaser-Parcel-Template",
+          "_blank"
+        );
+      });
   }
 
   arranqueMenu() {
-    this.scene.start("hello-world");
+    this.scene.start("menu");
   }
 }
