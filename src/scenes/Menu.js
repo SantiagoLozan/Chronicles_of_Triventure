@@ -1,8 +1,10 @@
 import Phaser from "phaser";
 import { getPhrase } from "../services/translations";
+import keys from "../enums/keys";
+
 export default class Precarga extends Phaser.Scene {
-  play;
-  ranking;
+  #play = keys.sceneInitialMenu.play;
+  #ranking = keys.sceneInitialMenu.ranking;
   constructor() {
     super("menu");
   }
@@ -13,8 +15,8 @@ export default class Precarga extends Phaser.Scene {
     this.add.text(70, 125, "Chronicles of Triventure");
     this.botonJuego = this.add.image(100, 350, "boton").setScale(0.28);
     this.botonRanking = this.add.image(300, 350, "boton").setScale(0.28);
-    this.add.text(75, 340, getPhrase, this.play);
-    this.add.text(275, 340, getPhrase, this.ranking);
+    this.add.text(75, 340, getPhrase(this.#play));
+    this.add.text(275, 340, getPhrase(this.#ranking));
   }
   update() {
     this.botonJuego
