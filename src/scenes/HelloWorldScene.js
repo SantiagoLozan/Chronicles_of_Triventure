@@ -5,19 +5,6 @@ import NIVELES from "../niveles";
 import Enemigo from "../componentes/enemigo";
 import ENEMIGOS from "../enemigos";
 
-// Manejador de eventos centralizados para comunicacion de componentes
-
-// Importacion
-// import events from './EventCenter'
-
-// Emisor de mensaje de difusion
-// Recibe el nombre del mensaje y los valores de parametro
-// events.emit('health-changed', this.health)
-
-// Receptor de mensaje, por ejemplo escena de UI
-// Recibe el nombre del mensaje y una funcion callback a ejecutar
-// events.on('health-changed', this.handleHealthChanged, this)
-
 export default class HelloWorldScene extends Phaser.Scene {
   constructor() {
     super("hello-world");
@@ -59,7 +46,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       null,
       this
     );
-    console.log(this.muertePersonaje);
+
     this.physics.add.existing(this.player);
     this.joystick = new VirtualJoystickComponent(this, this.player);
 

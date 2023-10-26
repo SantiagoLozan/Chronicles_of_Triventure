@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import events from "./EventCenter";
 import { getPhrase } from "../services/translations";
+import keys from "../enums/keys";
 
 // Manejador de eventos centralizados para comunicacion de componentes
 
@@ -16,6 +17,7 @@ import { getPhrase } from "../services/translations";
 // events.on('health-changed', this.handleHealthChanged, this)
 
 export default class UI extends Phaser.Scene {
+  #score = keys.sceneGame.score;
   constructor() {
     super("ui");
   }
