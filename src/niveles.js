@@ -1,16 +1,7 @@
-const NIVELES = 
-[{
-        tiled : "testcolision"
-},
-    {
-        tiled : "nivel1"
-    },
-    {
-        tiled :  "nivel2"
-    },
-    {
-        tiled :  "nivel3"
-    },
-]
+const NIVELES = [
+  {
+    tiled: "testcolision",
+  },
+];
 
 export default NIVELES;

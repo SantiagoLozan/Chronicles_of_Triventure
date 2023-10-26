@@ -1,4 +1,8 @@
 import Phaser from "phaser";
+import { EN_US, ES_AR, PT_BR } from "../enums/languages";
+import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
+import { getTranslations, getPhrase } from "../services/translations";
+import keys from "../enums/keys";
 
 export default class Precarga extends Phaser.Scene {
   constructor() {
@@ -25,7 +29,6 @@ export default class Precarga extends Phaser.Scene {
     this.load.tilemapTiledJSON("nivel1", "assets/niveles/nivel1.json");
     this.load.tilemapTiledJSON("nivel2", "assets/niveles/nivel2.json");
     this.load.tilemapTiledJSON("nivel3", "assets/niveles/nivel3.json");
-    this.load.tilemapTiledJSON("nivel4", "assets/niveles/nivel4.json");
     this.load.tilemapTiledJSON(
       "testcolision",
       "assets/niveles/testcolision.json"
@@ -50,7 +53,7 @@ export default class Precarga extends Phaser.Scene {
 
   create() {
     this.add.image(200, 300, "background");
-    this.banderaChina = this.add.image(70, 300, "brasil").setScale(0.24);
+    this.banderaBrasil = this.add.image(70, 300, "brasil").setScale(0.24);
     this.banderaUsa = this.add.image(200, 300, "usa").setScale(0.24);
     this.banderaSpain = this.add.image(330, 300, "spain").setScale(0.24);
     this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
@@ -89,13 +92,22 @@ export default class Precarga extends Phaser.Scene {
   update() {
     this.banderaUsa
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.arranqueMenu());
-    this.banderaChina
+      .on("pointerdown", () => {
+        this.arranqueMenu();
+        this.getTranslations(EN_US);
+      });
+    this.banderaBrasil
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.arranqueMenu());
+      .on("pointerdown", () => {
+        this.arranqueMenu();
+        this.getTranslations(PT_BR);
+      });
     this.banderaSpain
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.arranqueMenu());
+      .on("pointerdown", () => {
+        this.arranqueMenu();
+        this.getTranslations(ES_AR);
+      });
     this.logoUnraf
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
