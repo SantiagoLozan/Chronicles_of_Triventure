@@ -1,10 +1,11 @@
 import Phaser from "phaser";
 import { EN_US, ES_AR, PT_BR } from "../enums/languages";
-import { FETCHED, FETCHING, READY, TODO } from "../enums/status";
-import { getTranslations, getPhrase } from "../services/translations";
-import keys from "../enums/keys";
+import { FETCHED, FETCHING, TODO } from "../enums/status";
+import { getTranslations } from "../services/translations";
 
 export default class Precarga extends Phaser.Scene {
+  #wasChangedLanguage = TODO;
+
   constructor() {
     super("precarga");
   }
@@ -87,25 +88,20 @@ export default class Precarga extends Phaser.Scene {
       frameRate: 10,
       repeat: -1,
     });
-  }
 
-  update() {
     this.banderaUsa
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.arranqueMenu();
         this.getTranslations(EN_US);
       });
     this.banderaBrasil
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.arranqueMenu();
         this.getTranslations(PT_BR);
       });
     this.banderaSpain
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
-        this.arranqueMenu();
         this.getTranslations(ES_AR);
       });
     this.logoUnraf
@@ -125,5 +121,17 @@ export default class Precarga extends Phaser.Scene {
 
   arranqueMenu() {
     this.scene.start("menu");
+  }
+
+  updateWasChangedLanguage = () => {
+    this.#wasChangedLanguage = FETCHED;
+    this.arranqueMenu();
+  };
+
+  async getTranslations(language) {
+    this.language = language;
+    this.#wasChangedLanguage = FETCHING;
+
+    await getTranslations(language, this.updateWasChangedLanguage);
   }
 }

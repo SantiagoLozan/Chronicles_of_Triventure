@@ -4,10 +4,13 @@ import keys from "../enums/keys";
 
 export default class Precarga extends Phaser.Scene {
   #play = keys.sceneInitialMenu.play;
+
   #ranking = keys.sceneInitialMenu.ranking;
+
   constructor() {
     super("menu");
   }
+
   create() {
     this.add.image(200, 300, "background");
     this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
@@ -17,8 +20,7 @@ export default class Precarga extends Phaser.Scene {
     this.botonRanking = this.add.image(300, 350, "boton").setScale(0.28);
     this.add.text(75, 340, getPhrase(this.#play));
     this.add.text(275, 340, getPhrase(this.#ranking));
-  }
-  update() {
+
     this.botonJuego
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => this.arranqueJuego());
@@ -38,9 +40,11 @@ export default class Precarga extends Phaser.Scene {
   arranqueJuego() {
     this.scene.start("hello-world");
   }
+
   arranqueInfo() {
     this.scene.start("informacion");
   }
+
   arranqueRanking() {
     this.scene.start("ranking");
   }
