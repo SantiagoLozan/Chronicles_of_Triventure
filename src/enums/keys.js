@@ -20,7 +20,7 @@ const sceneInformation = {
 };
 
 const sceneGameOver = {
-  gameOver: "Perdiste",
+  gameOver: "Haz perdido!",
   retry: "Jugar de nuevo",
 };
 

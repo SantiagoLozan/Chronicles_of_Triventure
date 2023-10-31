@@ -7,6 +7,8 @@ import Informacion from "./scenes/Informacion";
 import Preload from "./scenes/Preload";
 import Ranking from "./scenes/Ranking";
 import VirtualJoyStickPlugin from "./componentes/joystick";
+import GameOver from "./scenes/GameOver";
+import FirebasePlugin from "./plugins/FirebasePlugin";
 
 const config = {
   type: Phaser.AUTO,
@@ -28,16 +30,22 @@ const config = {
     default: "arcade",
     arcade: {
       debug: true,
-      gravity: {y: 200},
+      gravity: { y: 200 },
     },
   },
-  scene: [Preload, HelloWorldScene, UI, Informacion, Menu, Ranking],
+  scene: [Preload, HelloWorldScene, UI, Informacion, Menu, Ranking, GameOver],
   plugins: {
     global: [
       {
         key: "rexVirtualJoyStick",
         plugin: VirtualJoyStickPlugin,
         start: true,
+      },
+      {
+        key: "FirebasePlugin",
+        plugin: FirebasePlugin,
+        start: true,
+        mapping: "firebase",
       },
     ],
   },
