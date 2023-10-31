@@ -39,14 +39,6 @@ export default class HelloWorldScene extends Phaser.Scene {
 
     this.physics.add.collider(this.player, plataformaLayer, () => {});
 
-    this.physics.add.collider(
-      this.player,
-      this.enemy,
-      this.muertePersonaje,
-      null,
-      this
-    );
-
     this.physics.add.existing(this.player);
     this.joystick = new VirtualJoystickComponent(this, this.player);
 
@@ -56,6 +48,13 @@ export default class HelloWorldScene extends Phaser.Scene {
 
     this.physics.world.setBounds(0, 0, 400, 600);
 
+    this.physics.add.collider(
+      this.player,
+      this.enemy,
+      this.muertePersonaje,
+      null,
+      this
+    );
     // launch UI scene
     this.scene.launch("ui");
   }
@@ -74,7 +73,7 @@ export default class HelloWorldScene extends Phaser.Scene {
     }
   }
 
-  muertePersonaje(player, enemy) {
+  muertePersonaje() {
     this.scene.start("perder");
   }
 }
