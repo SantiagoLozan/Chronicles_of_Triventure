@@ -13,7 +13,7 @@ export default class Enemigo extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, tipoEnemigo);
     scene.add.existing(this);
     scene.physics.world.enable(this);
-
+    this.scene = scene;
     this.vida = vida;
     this.ataque = ataque;
     this.velocidadAtaque = velocidadAtaque;
@@ -26,23 +26,26 @@ export default class Enemigo extends Phaser.Physics.Arcade.Sprite {
       callbackScope: this,
       loop: true,
     });
-    /*this.timer2 = scene.time.addEvent({
-      delay: 3000, 
-      callback: this.ataqueEnemigo,
-      callbackScope: this,
-      loop: true 
-  });*/
   }
 
-  /*ataqueEnemigo() {
+  ataqueEnemigo() {
+
+    const bullet = this.scene.bulletEnemigo.get(this.x, this.y);
+    if (bullet) {
+      bullet.setActive(true);
+      bullet.setVisible(true);
+      this.scene.physics.moveTo(bullet, this.scene.player.x, this.scene.player.y, 300);
+    }
+  }
         
-      }
-    */
+      
+    
 
   movimientoEnemigo() {
     const movEnemyX = Phaser.Math.Between(100, 330);
     const movEnemyY = Phaser.Math.Between(55, 110);
     this.x = movEnemyX;
     this.y = movEnemyY;
+    this.ataqueEnemigo();
   }
 }

@@ -35,6 +35,9 @@ export default class HelloWorldScene extends Phaser.Scene {
     plataformaLayer.setCollisionByProperty({ colision: true });
     fondoLayer.setCollisionByProperty({ colision: false });
 
+    this.crearAtaqueEnemigo();
+    this.crearAtaquePersonaje()
+
     this.player = new Jugador(this, 250, 350, "player", 5, 1, 1);
 
     this.physics.add.collider(this.player, plataformaLayer, () => {});
@@ -43,6 +46,9 @@ export default class HelloWorldScene extends Phaser.Scene {
     this.joystick = new VirtualJoystickComponent(this, this.player);
 
     this.enemy = new Enemigo(this, 170, 60, ENEMIGOS, 5, 1, 1);
+
+    
+
     this.physics.add.existing(this.enemy);
     this.joystickCursors = this.joystick.joystickCursors;
 
@@ -55,6 +61,15 @@ export default class HelloWorldScene extends Phaser.Scene {
       null,
       this
     );
+
+    this.physics.add.collider(
+      this.bulletEnemigo,
+      this.player,
+      this.muertePersonaje,
+      null,
+      this
+    );
+
     // launch UI scene
     this.scene.launch("ui");
   }
@@ -71,6 +86,76 @@ export default class HelloWorldScene extends Phaser.Scene {
     } else {
       this.player.movimientoPersonaje(0, 0);
     }
+  }
+
+  crearAtaqueEnemigo() {
+    this.bulletEnemigo = this.physics.add.group({
+      inmovable: true,
+      allowGravity: false,
+    });
+
+    this.bulletEnemigo.createMultiple({
+      classType: Phaser.Physics.Arcade.Sprite,
+      key: "bullet",
+      frame: 0,
+      visible: false,
+      active: false,
+      repeat: 50,
+      setXY: {
+        x: 400,
+        y: 550,
+      },
+    });
+
+    this.bulletEnemigo.children.entries.forEach((bullet) => {
+      bullet.setCollideWorldBounds(true);
+      bullet.body.onWorldBounds = true;
+      bullet.body.world.on(
+        "worldbounds",
+        function (body) {
+          if (body.gameObject === this) {
+            this.setActive(false);
+            this.setVisible(false);
+          }
+        },
+        bullet
+      );
+    });
+  }
+
+  crearAtaquePersonaje() {
+    this.bulletPersonaje = this.physics.add.group({
+      inmovable: true,
+      allowGravity: false,
+    });
+
+    this.bulletPersonaje.createMultiple({
+      classType: Phaser.Physics.Arcade.Sprite,
+      key: "bullet2",
+      frame: 0,
+      visible: false,
+      active: false,
+      repeat: 50,
+      setXY: {
+        x: 400,
+        y: 450,
+      },
+    });
+
+    this.bulletPersonaje.children.entries.forEach((bullet) => {
+      bullet.setCollideWorldBounds(true);
+      bullet.body.onWorldBounds = true;
+      bullet.body.world.on(
+        "worldbounds",
+        function (body) {
+          if (body.gameObject === this) {
+            this.setActive(false);
+            this.setVisible(false);
+          }
+        },
+        bullet
+      );
+    });
   }
 
   muertePersonaje() {

@@ -39,7 +39,7 @@ export default class FirebasePlugin extends Phaser.Plugins.BasePlugin {
     this.db = getFirestore(app);
     this.auth = getAuth(app);
     this.onLoggedInCallback = () => {};
-
+    console.log("plugin");
     this.authStateChangedUnsubscribe = onAuthStateChanged(this.auth, (user) => {
       if (user && this.onLoggedInCallback) {
         this.onLoggedInCallback();

@@ -24,9 +24,15 @@ const sceneGameOver = {
   retry: "Jugar de nuevo",
 };
 
+const sceneGanador = {
+  ganador: "Haz Ganado!"
+
+}
+
 export default {
   sceneGame,
   sceneInitialMenu,
   sceneInformation,
   sceneGameOver,
+  sceneGanador,
 };
