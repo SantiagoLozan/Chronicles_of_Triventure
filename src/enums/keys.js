@@ -1,6 +1,6 @@
 // keys usadas en las traducciones... podemos agregar separacion logica en el armado
 const sceneGame = {
-  score: "Puntos",
+  score: "Puntos:",
 };
 
 const sceneInitialMenu = {
@@ -9,7 +9,7 @@ const sceneInitialMenu = {
 };
 
 const sceneInformation = {
-  information: "Informacion",
+  information: "Información",
   uno: "Deberas eliminar todos los enemigos",
   dos: "que se encuentran en el nivel,",
   tres: "para poder avanzar cada etapa.",

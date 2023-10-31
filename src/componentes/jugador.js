@@ -18,10 +18,6 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     //this.bullets = new Bullets(this);
   }
 
-  
-  /*ataquePersonaje() {
-
-  }*/
 
   movimientoPersonaje(dx, dy) {
     
@@ -46,16 +42,20 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
       // Si no se está moviendo, detén la animación
       this.anims.stop();
       this.setVelocity(0, 0);
-
+      this.ataquePersonaje();
       //this.bullets.fireBullet(this.x, this.y - 10);
     }
+  }
+
+  ataquePersonaje(){
+
   }
 
   muertePersonaje() {
     // Maneja la lógica de la muerte del personaje
     if (this.vida <= 0) {
       
-      // Puedes agregar aquí más lógica relacionada con la muerte del personaje
+      
     }
   }
 
