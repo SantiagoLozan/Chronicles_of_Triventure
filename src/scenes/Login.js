@@ -7,7 +7,7 @@ export default class Login extends Phaser.Scene {
 
   create() {
 
-    console.log(this.firebase);
+    
     // agregar un texto "Login" en la parte superior de la pantalla
     this.add
       .text(200, 100, "Login", {

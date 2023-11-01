@@ -42,13 +42,13 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
       this.anims.play("down", true);
     } else {
       // Si no se está moviendo, detén la animación 
-      this.enMovimiento = false
+      
       this.anims.stop();
       this.setVelocity(0, 0);
-      
+      this.ataquePersonaje()
     }
 
-    this.timedEvent = this.time.delayedCall(3000, this.ataquePersonaje, [], this);
+    
   }
 
   ataquePersonaje(){
@@ -56,7 +56,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
       if (bulletPersonaje) {
         bulletPersonaje.setActive(true);
         bulletPersonaje.setVisible(true);
-        this.scene.physics.moveTo(bulletPersonaje, this.scene.enemy.x, this.scene.enemy.y, 150);
+        this.scene.physics.moveTo(bulletPersonaje, this.scene.enemy.x, this.scene.enemy.y, 300);
       }
     }
 

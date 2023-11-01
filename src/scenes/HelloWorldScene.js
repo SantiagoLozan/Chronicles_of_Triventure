@@ -70,6 +70,14 @@ export default class HelloWorldScene extends Phaser.Scene {
       this
     );
 
+    this.physics.add.collider(
+      this.bulletPersonaje,
+      this.enemy,
+      this.muerteEnemigo,
+      null,
+      this
+    );
+
     // launch UI scene
     this.scene.launch("ui");
   }
@@ -156,6 +164,10 @@ export default class HelloWorldScene extends Phaser.Scene {
         bullet
       );
     });
+  }
+
+  muerteEnemigo(){
+    this.scene.start("ganar");
   }
 
   muertePersonaje() {
