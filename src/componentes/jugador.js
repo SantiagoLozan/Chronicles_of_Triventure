@@ -1,7 +1,5 @@
 import Phaser from "phaser";
 
-
-
 export default class Jugador extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, sprite, vida, ataque, velocidadAtaque) {
     super(scene, x, y, sprite); // Llama al constructor de la clase padre (Sprite)
@@ -9,6 +7,8 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     scene.physics.world.enable(this);
     this.scene = scene;
     this.sprite = ["player"];
+    this.lastAttackTime = 0;
+    this.attackDelay = 5000;
     this.vida = vida;
     this.ataque = ataque;
     this.velocidadAtaque = velocidadAtaque;
@@ -17,16 +17,12 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     this.y = y;
     this.setCollideWorldBounds(true);
     this.body.allowGravity = false;
-    
   }
 
-
   movimientoPersonaje(dx, dy) {
-    
-
     const velocidad = 4;
-    const velocidadX = velocidad * dx
-    const velocidadY = velocidad * dy
+    const velocidadX = velocidad * dx;
+    const velocidadY = velocidad * dy;
 
     if (dx < 0) {
       this.setVelocityX(velocidadX);
@@ -41,24 +37,30 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityY(velocidadY);
       this.anims.play("down", true);
     } else {
-      // Si no se está moviendo, detén la animación 
-      
+      // Si no se está moviendo, detén la animación
       this.anims.stop();
       this.setVelocity(0, 0);
-      this.ataquePersonaje()
-    }
-
-    
-  }
-
-  ataquePersonaje(){
-      const bulletPersonaje = this.scene.bulletPersonaje.get(this.x, this.y);
-      if (bulletPersonaje) {
-        bulletPersonaje.setActive(true);
-        bulletPersonaje.setVisible(true);
-        this.scene.physics.moveTo(bulletPersonaje, this.scene.enemy.x, this.scene.enemy.y, 300);
+      const currentTime = this.scene.time.now;
+      if (currentTime - this.lastAttackTime >= this.attackDelay) {
+        this.ataquePersonaje();
+        this.lastAttackTime = currentTime;
       }
     }
+  }
+
+  ataquePersonaje() {
+    const bulletPersonaje = this.scene.bulletPersonaje.get(this.x, this.y);
+    if (bulletPersonaje) {
+      bulletPersonaje.setActive(true);
+      bulletPersonaje.setVisible(true);
+      this.scene.physics.moveTo(
+        bulletPersonaje,
+        this.scene.enemy.x,
+        this.scene.enemy.y,
+        450
+      );
+    }
+  }
 
   aumentoAtaqueP(aumento) {
     // Aumenta el atributo de ataque del personaje

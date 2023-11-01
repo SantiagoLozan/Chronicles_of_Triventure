@@ -21,7 +21,7 @@ export default class Enemigo extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
     this.body.allowGravity = false;
     this.timer = scene.time.addEvent({
-      delay: 3000,
+      delay: 1000,
       callback: this.movimientoEnemigo,
       callbackScope: this,
       loop: true,
@@ -29,17 +29,18 @@ export default class Enemigo extends Phaser.Physics.Arcade.Sprite {
   }
 
   ataqueEnemigo() {
-
     const bullet = this.scene.bulletEnemigo.get(this.x, this.y);
     if (bullet) {
       bullet.setActive(true);
       bullet.setVisible(true);
-      this.scene.physics.moveTo(bullet, this.scene.player.x, this.scene.player.y, 300);
+      this.scene.physics.moveTo(
+        bullet,
+        this.scene.player.x,
+        this.scene.player.y,
+        200
+      );
     }
   }
-        
-      
-    
 
   movimientoEnemigo() {
     const movEnemyX = Phaser.Math.Between(100, 330);

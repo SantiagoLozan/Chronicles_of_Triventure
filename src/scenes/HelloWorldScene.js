@@ -36,9 +36,9 @@ export default class HelloWorldScene extends Phaser.Scene {
     fondoLayer.setCollisionByProperty({ colision: false });
 
     this.crearAtaqueEnemigo();
-    this.crearAtaquePersonaje()
+    this.crearAtaquePersonaje();
 
-    this.player = new Jugador(this, 250, 350, "player", 5, 1, 1);
+    this.player = new Jugador(this, 250, 550, "player", 5, 1, 1);
 
     this.physics.add.collider(this.player, plataformaLayer, () => {});
 
@@ -46,8 +46,6 @@ export default class HelloWorldScene extends Phaser.Scene {
     this.joystick = new VirtualJoystickComponent(this, this.player);
 
     this.enemy = new Enemigo(this, 170, 60, ENEMIGOS, 5, 1, 1);
-
-    
 
     this.physics.add.existing(this.enemy);
     this.joystickCursors = this.joystick.joystickCursors;
@@ -74,6 +72,22 @@ export default class HelloWorldScene extends Phaser.Scene {
       this.bulletPersonaje,
       this.enemy,
       this.muerteEnemigo,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.bulletPersonaje,
+      plataformaLayer,
+      this.destroyBullet,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.bulletEnemigo,
+      plataformaLayer,
+      this.destroyBullet,
       null,
       this
     );
@@ -108,7 +122,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       frame: 0,
       visible: false,
       active: false,
-      repeat: 50,
+      repeat: 100,
       setXY: {
         x: 400,
         y: 550,
@@ -143,7 +157,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       frame: 0,
       visible: false,
       active: false,
-      repeat: 50,
+      repeat: 100,
       setXY: {
         x: 400,
         y: 450,
@@ -166,11 +180,18 @@ export default class HelloWorldScene extends Phaser.Scene {
     });
   }
 
-  muerteEnemigo(){
+  muerteEnemigo() {
     this.scene.start("ganar");
+    this.lastAttackTime = 0;
   }
 
   muertePersonaje() {
     this.scene.start("perder");
+    this.lastAttackTime = 0;
+  }
+  destroyBullet(bullet, block) {
+    bullet.setActive(false);
+    bullet.setVisible(false);
+    bullet.destroy();
   }
 }
