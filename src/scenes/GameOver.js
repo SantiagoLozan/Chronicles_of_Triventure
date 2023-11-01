@@ -1,14 +1,20 @@
 import Phaser from "phaser";
+import { getPhrase } from "../services/translations";
+import keys from "../enums/keys";
 
 export default class Precarga extends Phaser.Scene {
+  #gameOver = keys.sceneGameOver.gameOver;
+  #retry = keys.sceneGameOver.retry;
   constructor() {
-    super("ranking");
+    super("perder");
   }
+
   create() {
     this.add.image(200, 300, "background");
     this.botonAtras = this.add.image(60, 525, "botonAtras").setScale(0.15);
     this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
-    this.add.text(70, 125, "Ranking");
+    this.add.text(100, 125, getPhrase(this.#gameOver));
+    this.add.text(30, 165, getPhrase(this.#retry));
   }
   update() {
     this.botonAtras
