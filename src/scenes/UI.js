@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import events from "./EventCenter";
+import events from "./HelloWorldScene";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
@@ -17,23 +17,34 @@ import keys from "../enums/keys";
 // events.on('health-changed', this.handleHealthChanged, this)
 
 export default class UI extends Phaser.Scene {
-  #score = keys.sceneGame.score;
+  #tiempo = keys.sceneGame.time;
   constructor() {
     super("ui");
   }
 
+  timeInSeconds = 0;
+  tiempoText;
+
   create() {
-    this.scoreCount = 0;
-    // add text with count collider and date
-    this.text = this.add.text(10, 10, `Puntos: ${this.scoreCount}`, {
-      font: "16px Courier",
+    (this.tiempoText = this.add.text(10, 10, getPhrase(this.#tiempo))),
+      {
+        fontSize: "12px",
+        fill: "#fff",
+      };
+
+    const user = this.firebase.getUser();
+    this.add.text(150, 10, user.displayName || user.uid);
+
+    this.events.on("juego_terminado", () => {
+      this.timeInSeconds = 0;
+      console.log("Evento juego_terminado emitido");
     });
-    events.on("score-event", this.scoreEvent, this);
   }
 
-  scoreEvent(data) {
-    // update text
-    this.scoreCount += 1;
-    this.text.setText(getPhrase, `Puntos: ${this.scoreCount}`);
+  update(time, delta) {
+    this.timeInSeconds += delta;
+    this.tiempoText.setText(
+      `${getPhrase(this.#tiempo)}: ${Math.floor(this.timeInSeconds / 1000)}`
+    );
   }
 }

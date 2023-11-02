@@ -13,6 +13,7 @@ export default class HelloWorldScene extends Phaser.Scene {
   init(data) {
     this.nivel = data.nivel || 1;
     this.tiled = NIVELES[this.nivel - 1].tiled;
+    this.timeInSeconds || 0;
   }
 
   create() {
@@ -181,14 +182,25 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   muerteEnemigo() {
+    const user = this.firebase.getUser();
+    this.firebase.saveGameData(user.uid, {
+      time: this.timeInSeconds,
+    });
+    this.timeInSeconds = 0;
+    this.events.emit("juego_terminado");
+    console.log("Evento juego_terminado emitido");
     this.scene.start("ganar");
     this.lastAttackTime = 0;
   }
 
   muertePersonaje() {
+    this.events.emit("juego_terminado");
+    this.timeInSeconds = 0;
+    console.log("Evento juego_terminado emitido personaje");
     this.scene.start("perder");
     this.lastAttackTime = 0;
   }
+
   destroyBullet(bullet, block) {
     bullet.setActive(false);
     bullet.setVisible(false);

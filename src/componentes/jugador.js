@@ -17,6 +17,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     this.y = y;
     this.setCollideWorldBounds(true);
     this.body.allowGravity = false;
+    this.body.setImmovable(true);
   }
 
   movimientoPersonaje(dx, dy) {
