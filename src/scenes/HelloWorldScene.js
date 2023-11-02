@@ -4,6 +4,7 @@ import VirtualJoystickComponent from "../componentes/joystick";
 import NIVELES from "../niveles";
 import Enemigo from "../componentes/enemigo";
 import ENEMIGOS from "../enemigos";
+import events from './EventCenter.js';
 
 export default class HelloWorldScene extends Phaser.Scene {
   constructor() {
@@ -187,16 +188,16 @@ export default class HelloWorldScene extends Phaser.Scene {
       time: this.timeInSeconds,
     });
     this.timeInSeconds = 0;
-    this.events.emit("juego_terminado");
-    console.log("Evento juego_terminado emitido");
+    events.emit("juego_terminado");
+    console.log("Evento/MuerteEnemigo juego_terminado EMITIDO");
     this.scene.start("ganar");
     this.lastAttackTime = 0;
   }
 
   muertePersonaje() {
-    this.events.emit("juego_terminado");
+    events.emit("juego_terminado");
     this.timeInSeconds = 0;
-    console.log("Evento juego_terminado emitido personaje");
+    console.log("Evento/MuertePersonaje: juego_terminado EMITIDO ");
     this.scene.start("perder");
     this.lastAttackTime = 0;
   }
