@@ -17,4 +17,4 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         tag_name: v0.0.${{ github.run_number }}
-        name: Release V0.0.${{ github.run_number }}
+        name: Release V0.0.2

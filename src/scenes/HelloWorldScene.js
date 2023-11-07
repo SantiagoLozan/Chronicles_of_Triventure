@@ -4,6 +4,7 @@ import VirtualJoystickComponent from "../componentes/joystick";
 import NIVELES from "../niveles";
 import Enemigo from "../componentes/enemigo";
 import ENEMIGOS from "../enemigos";
+import events from "./EventCenter.js";
 
 export default class HelloWorldScene extends Phaser.Scene {
   constructor() {
@@ -13,6 +14,7 @@ export default class HelloWorldScene extends Phaser.Scene {
   init(data) {
     this.nivel = data.nivel || 1;
     this.tiled = NIVELES[this.nivel - 1].tiled;
+    this.timeInSeconds || 0;
   }
 
   create() {
@@ -38,14 +40,14 @@ export default class HelloWorldScene extends Phaser.Scene {
     this.crearAtaqueEnemigo();
     this.crearAtaquePersonaje();
 
-    this.player = new Jugador(this, 250, 550, "player", 5, 1, 1);
+    this.player = new Jugador(this, 70, 550, "player", 5, 1, 1);
 
     this.physics.add.collider(this.player, plataformaLayer, () => {});
 
     this.physics.add.existing(this.player);
     this.joystick = new VirtualJoystickComponent(this, this.player);
 
-    this.enemy = new Enemigo(this, 170, 60, ENEMIGOS, 5, 1, 1);
+    this.enemy = new Enemigo(this, 120, 50, ENEMIGOS, 5, 1, 1);
 
     this.physics.add.existing(this.enemy);
     this.joystickCursors = this.joystick.joystickCursors;
@@ -91,6 +93,16 @@ export default class HelloWorldScene extends Phaser.Scene {
       null,
       this
     );
+
+    this.physics.add.collider(
+      this.bulletPersonaje,
+      this.bulletEnemigo,
+      this.destroyBullets,
+      null,
+      this
+    );
+
+    
 
     // launch UI scene
     this.scene.launch("ui");
@@ -181,17 +193,31 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   muerteEnemigo() {
+    events.emit("juego_terminado");
+    console.log("Evento/MuerteEnemigo juego_terminado EMITIDO");
     this.scene.start("ganar");
     this.lastAttackTime = 0;
   }
 
   muertePersonaje() {
+    //events.emit("juego_terminado");
+    //console.log("Evento/MuertePersonaje: juego_terminado EMITIDO ");
     this.scene.start("perder");
     this.lastAttackTime = 0;
   }
+
   destroyBullet(bullet, block) {
     bullet.setActive(false);
     bullet.setVisible(false);
     bullet.destroy();
+  }
+
+  destroyBullets(bullet, bullet2){
+    bullet.setActive(false);
+    bullet.setVisible(false);
+    bullet.destroy();
+    bullet2.setActive(false);
+    bullet2.setVisible(false);
+    bullet2.destroy();
   }
 }

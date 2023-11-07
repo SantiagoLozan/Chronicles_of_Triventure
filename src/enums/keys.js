@@ -1,6 +1,6 @@
 // keys usadas en las traducciones... podemos agregar separacion logica en el armado
 const sceneGame = {
-  score: "Puntos:",
+  time: "Tiempo",
 };
 
 const sceneInitialMenu = {
@@ -25,9 +25,11 @@ const sceneGameOver = {
 };
 
 const sceneGanador = {
-  ganador: "Haz Ganado!"
-
-}
+  ganador: "Haz Ganado!",
+};
+const sceneRanking = {
+  segundo: "segundos",
+};
 
 export default {
   sceneGame,
@@ -35,4 +37,5 @@ export default {
   sceneInformation,
   sceneGameOver,
   sceneGanador,
+  sceneRanking,
 };
