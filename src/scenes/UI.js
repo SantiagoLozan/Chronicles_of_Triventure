@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
-import events from './EventCenter';
+import events from "./EventCenter";
 
 // Manejador de eventos centralizados para comunicacion de componentes
 
@@ -10,7 +10,7 @@ import events from './EventCenter';
 //Lo importamos en todos los modulos que vamos a utilizar.
 // import events from './EventCenter'
 
-//Paso 2: Por ejemplo, en la escena de Juego... 
+//Paso 2: Por ejemplo, en la escena de Juego...
 // Emisor de mensaje de difusion
 // Decirle el nombre del mensaje y los valores de parametro que deseamos emitir.
 // events.emit('health-changed', this.health)

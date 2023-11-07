@@ -4,7 +4,7 @@ import VirtualJoystickComponent from "../componentes/joystick";
 import NIVELES from "../niveles";
 import Enemigo from "../componentes/enemigo";
 import ENEMIGOS from "../enemigos";
-import events from './EventCenter.js';
+import events from "./EventCenter.js";
 
 export default class HelloWorldScene extends Phaser.Scene {
   constructor() {
