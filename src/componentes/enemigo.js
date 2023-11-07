@@ -17,6 +17,7 @@ export default class Enemigo extends Phaser.Physics.Arcade.Sprite {
     this.vida = vida;
     this.ataque = ataque;
     this.velocidadAtaque = velocidadAtaque;
+    this.body.setImmovable(true);
 
     this.setCollideWorldBounds(true);
     this.body.allowGravity = false;
