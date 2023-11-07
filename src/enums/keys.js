@@ -27,6 +27,9 @@ const sceneGameOver = {
 const sceneGanador = {
   ganador: "Haz Ganado!",
 };
+const sceneRanking = {
+  segundo: "segundos",
+};
 
 export default {
   sceneGame,
@@ -34,4 +37,5 @@ export default {
   sceneInformation,
   sceneGameOver,
   sceneGanador,
+  sceneRanking,
 };

@@ -1,6 +1,11 @@
 import Phaser from "phaser";
+import { getPhrase } from "../services/translations";
+import keys from "../enums/keys";
 
-export default class Precarga extends Phaser.Scene {
+export default class Ranking extends Phaser.Scene {
+  
+  #segundo = keys.sceneRanking.segundo;
+
   constructor() {
     super("ranking");
   }
@@ -9,15 +14,17 @@ export default class Precarga extends Phaser.Scene {
     this.botonAtras = this.add.image(60, 525, "botonAtras").setScale(0.15);
     this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
     this.add.text(70, 125, "Ranking");
-    this.firebase.getHighScores().then((scores) => {
+    console.log(this.#segundo);
+    this.firebase.getHighScores().then((times) => {
       let scrollY = 200;
-      scores.forEach((doc) => {
-        this.add
-          .text(400, scrollY, `${doc.name} - ${doc.time}`, {
-            fontSize: 24,
+      times.forEach((doc) => {
+      const formattedTime = doc.time.toFixed(2);
+    this.add
+      .text(30, scrollY, `${doc.name} - ${formattedTime} ${getPhrase(this.#segundo)}`,  {
+            fontSize: 12,
           })
-          .setOrigin(0.5);
-        scrollY += 30;
+          
+        scrollY += 20;
       });
     });
   }

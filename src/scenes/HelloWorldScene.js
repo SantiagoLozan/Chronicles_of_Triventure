@@ -40,14 +40,14 @@ export default class HelloWorldScene extends Phaser.Scene {
     this.crearAtaqueEnemigo();
     this.crearAtaquePersonaje();
 
-    this.player = new Jugador(this, 250, 550, "player", 5, 1, 1);
+    this.player = new Jugador(this, 70, 550, "player", 5, 1, 1);
 
     this.physics.add.collider(this.player, plataformaLayer, () => {});
 
     this.physics.add.existing(this.player);
     this.joystick = new VirtualJoystickComponent(this, this.player);
 
-    this.enemy = new Enemigo(this, 170, 60, ENEMIGOS, 5, 1, 1);
+    this.enemy = new Enemigo(this, 120, 50, ENEMIGOS, 5, 1, 1);
 
     this.physics.add.existing(this.enemy);
     this.joystickCursors = this.joystick.joystickCursors;
@@ -93,6 +93,16 @@ export default class HelloWorldScene extends Phaser.Scene {
       null,
       this
     );
+
+    this.physics.add.collider(
+      this.bulletPersonaje,
+      this.bulletEnemigo,
+      this.destroyBullets,
+      null,
+      this
+    );
+
+    
 
     // launch UI scene
     this.scene.launch("ui");
@@ -183,11 +193,6 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   muerteEnemigo() {
-    const user = this.firebase.getUser();
-    this.firebase.saveGameData(user.uid, {
-      time: this.timeInSeconds,
-    });
-    this.timeInSeconds = 0;
     events.emit("juego_terminado");
     console.log("Evento/MuerteEnemigo juego_terminado EMITIDO");
     this.scene.start("ganar");
@@ -195,9 +200,8 @@ export default class HelloWorldScene extends Phaser.Scene {
   }
 
   muertePersonaje() {
-    events.emit("juego_terminado");
-    this.timeInSeconds = 0;
-    console.log("Evento/MuertePersonaje: juego_terminado EMITIDO ");
+    //events.emit("juego_terminado");
+    //console.log("Evento/MuertePersonaje: juego_terminado EMITIDO ");
     this.scene.start("perder");
     this.lastAttackTime = 0;
   }
@@ -206,5 +210,14 @@ export default class HelloWorldScene extends Phaser.Scene {
     bullet.setActive(false);
     bullet.setVisible(false);
     bullet.destroy();
+  }
+
+  destroyBullets(bullet, bullet2){
+    bullet.setActive(false);
+    bullet.setVisible(false);
+    bullet.destroy();
+    bullet2.setActive(false);
+    bullet2.setVisible(false);
+    bullet2.destroy();
   }
 }
