@@ -8,7 +8,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.sprite = ["player"];
     this.lastAttackTime = 0;
-    this.attackDelay = 5000;
+    this.attackDelay = 1000;
     this.vida = vida;
     this.ataque = ataque;
     this.velocidadAtaque = velocidadAtaque;
@@ -18,6 +18,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     this.setCollideWorldBounds(true);
     this.body.allowGravity = false;
     this.body.setImmovable(true);
+    this.lastDirection = null;
   }
 
   movimientoPersonaje(dx, dy) {
@@ -34,13 +35,17 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     } else if (dy < 0) {
       this.setVelocityY(velocidadY);
       this.anims.play("up", true);
+      this.lastDirection = "up";
     } else if (dy > 0) {
       this.setVelocityY(velocidadY);
       this.anims.play("down", true);
+      this.lastDirection = "down";
     } else {
-      // Si no se está moviendo, detén la animación
       this.anims.stop();
       this.setVelocity(0, 0);
+      if (this.lastDirection) {
+        this.setFrame(12);
+      }
       const currentTime = this.scene.time.now;
       if (currentTime - this.lastAttackTime >= this.attackDelay) {
         this.ataquePersonaje();
@@ -64,7 +69,6 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
   }
 
   aumentoAtaqueP(aumento) {
-    // Aumenta el atributo de ataque del personaje
     this.ataque += aumento;
   }
 }
