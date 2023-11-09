@@ -30,31 +30,38 @@ export default class UI extends Phaser.Scene {
   tiempoText;
 
   create() {
-    (this.tiempoText = this.add.text(10, 10, getPhrase(this.#tiempo))),
+    (this.tiempoText = this.add.text(32, 10, getPhrase(this.#tiempo))),
       {
         fontSize: "12px",
         fill: "#fff",
       };
 
     const user = this.firebase.getUser();
-    this.add.text(150, 10, user.displayName || user.uid);
+    this.displayName = user.displayName || user.uid;
+    this.shortenedDisplayName =
+      this.displayName.length > 13
+        ? this.displayName.substring(0, 13) + "..."
+        : this.displayName;
+
+    this.add.text(230, 10, this.shortenedDisplayName, {
+      fontSize: 16,
+      fontFamily: "Arial",
+      color: "white",
+    });
 
     events.on("juego_terminado", () => {
-      
       console.log("Evento juego_terminado recibido");
 
       const user = this.firebase.getUser();
       const time = this.timeInSeconds / 1000;
-      console.log("tiempo a guardar", this.timeInSeconds)
-  
-      const userName = user.displayName || user.uid
+      console.log("tiempo a guardar", this.timeInSeconds);
+
+      const userName = user.displayName || user.uid;
       this.firebase.saveGameData(user.uid, {
         name: userName,
         time: time,
         createdAt: new Date(),
       });
-  
-      
     });
     this.timeInSeconds = 0;
   }
