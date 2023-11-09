@@ -14,6 +14,7 @@ export default class Perdedor extends Phaser.Scene {
     this.add.image(200, 300, "background");
     this.botonAtras = this.add.image(60, 525, "botonAtras").setScale(0.15);
     this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
+    this.scene.get("precarga").events.emit("playMusic");
     this.add.text(130, 125, getPhrase(this.#gameOver), {
       fontSize: "24px",
       fontFamily: "Arial",

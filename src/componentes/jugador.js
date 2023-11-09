@@ -8,7 +8,7 @@ export default class Jugador extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.sprite = ["player"];
     this.lastAttackTime = 0;
-    this.attackDelay = 1000;
+    this.attackDelay = 3000;
     this.vida = vida;
     this.ataque = ataque;
     this.velocidadAtaque = velocidadAtaque;
