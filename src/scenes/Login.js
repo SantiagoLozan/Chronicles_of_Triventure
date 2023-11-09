@@ -7,10 +7,12 @@ export default class Login extends Phaser.Scene {
 
   preload() {
     this.load.image("background", "assets/capturas/1.png");
+    this.load.audio("elecciones", "assets/audio/elecciones.wav");
   }
 
   create() {
     this.add.image(200, 300, "background");
+    this.sfx = this.sound.add("elecciones");
     // agregar un texto "Login" en la parte superior de la pantalla
     /*this.add
       .text(200, 100, "Login", {
@@ -62,6 +64,7 @@ export default class Login extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on("pointerdown", () => {
+        this.sfx.play();
         this.firebase
           .signInAnonymously()
           .then(() => {
@@ -82,6 +85,7 @@ export default class Login extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on("pointerdown", () => {
+        this.sfx.play();
         this.firebase
           .signInWithGoogle()
           .then(() => {
