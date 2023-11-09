@@ -22,10 +22,13 @@ const sceneInformation = {
 const sceneGameOver = {
   gameOver: "Haz perdido!",
   retry: "Jugar de nuevo",
+  intenta: "Intenta ganar para posicionarte en el ranking",
 };
 
 const sceneGanador = {
   ganador: "Haz Ganado!",
+  mejora: "Mejora tu tiempo",
+  top1: "para estar en el top 1",
 };
 const sceneRanking = {
   segundo: "segundos",

@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { getPhrase } from "../services/translations";
 import keys from "../enums/keys";
 
-export default class Precarga extends Phaser.Scene {
+export default class Informacion extends Phaser.Scene {
   #informationText = keys.sceneInformation.information;
   #information1 = keys.sceneInformation.uno;
   #information2 = keys.sceneInformation.dos;
@@ -20,14 +20,46 @@ export default class Precarga extends Phaser.Scene {
     this.add.image(200, 300, "background");
     this.botonAtras = this.add.image(60, 525, "botonAtras").setScale(0.15);
     this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
-    this.add.text(100, 125, getPhrase(this.#informationText));
-    this.add.text(30, 165, getPhrase(this.#information1));
-    this.add.text(30, 185, getPhrase(this.#information2));
-    this.add.text(30, 205, getPhrase(this.#information3));
-    this.add.text(30, 225, getPhrase(this.#information4));
-    this.add.text(30, 245, getPhrase(this.#information5));
-    this.add.text(30, 265, getPhrase(this.#information6));
-    this.add.text(30, 285, getPhrase(this.#information7));
+    this.add.text(130, 125, getPhrase(this.#informationText), {
+      fontSize: "24px",
+      fontFamily: "Arial",
+      color: "black",
+    });
+    this.add.text(30, 175, getPhrase(this.#information1), {
+      fontSize: "20px",
+      fontFamily: "Arial",
+      color: "black",
+    });
+    this.add.text(30, 195, getPhrase(this.#information2), {
+      fontSize: "20px",
+      fontFamily: "Arial",
+      color: "black",
+    });
+    this.add.text(30, 215, getPhrase(this.#information3), {
+      fontSize: "20px",
+      fontFamily: "Arial",
+      color: "black",
+    });
+    this.add.text(30, 235, getPhrase(this.#information4), {
+      fontSize: "20px",
+      fontFamily: "Arial",
+      color: "black",
+    });
+    this.add.text(30, 255, getPhrase(this.#information5), {
+      fontSize: "20px",
+      fontFamily: "Arial",
+      color: "black",
+    });
+    this.add.text(30, 275, getPhrase(this.#information6), {
+      fontSize: "20px",
+      fontFamily: "Arial",
+      color: "black",
+    });
+    this.add.text(30, 295, getPhrase(this.#information7), {
+      fontSize: "20px",
+      fontFamily: "Arial",
+      color: "black",
+    });
   }
   update() {
     this.botonAtras

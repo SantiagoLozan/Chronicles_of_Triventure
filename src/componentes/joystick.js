@@ -32,19 +32,15 @@ export default class VirtualJoystickComponent {
   }
 
   handleJoystickUpdate() {
-    // Obtén la dirección del joystick en grados
     const direction = this.joystick.angle;
 
-    // Define la velocidad de movimiento del jugador
-    const velocidad = 4; // Ajusta esto según tu juego
+    const velocidad = 4;
 
-    // Mueve al jugador en la dirección del joystick
     if (direction !== null) {
       const dx = Math.cos(direction) * velocidad;
       const dy = Math.sin(direction) * velocidad;
       this.jugador.movimientoPersonaje(dx, dy);
     } else {
-      // Si no se está moviendo el joystick, puedes detener al jugador
       this.jugador.movimientoPersonaje(0, 0);
     }
   }
