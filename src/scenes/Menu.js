@@ -32,16 +32,25 @@ export default class Menu extends Phaser.Scene {
       fontFamily: "Arial",
       color: "black",
     });
-
+    this.sfx = this.sound.add("elecciones");
     this.botonJuego
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.arranqueJuego());
+      .on("pointerdown", () => {
+        this.sfx.play();
+        this.arranqueJuego();
+      });
     this.botonInfo
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.arranqueInfo());
+      .on("pointerdown", () => {
+        this.sfx.play();
+        this.arranqueInfo();
+      });
     this.botonRanking
       .setInteractive({ useHandCursor: true })
-      .on("pointerdown", () => this.arranqueRanking());
+      .on("pointerdown", () => {
+        this.sfx.play();
+        this.arranqueRanking();
+      });
     this.logoUnraf
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
@@ -50,6 +59,7 @@ export default class Menu extends Phaser.Scene {
   }
 
   arranqueJuego() {
+    this.scene.get("precarga").events.emit("stopMusic");
     this.scene.start("hello-world");
   }
 

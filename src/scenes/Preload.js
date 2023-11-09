@@ -29,6 +29,10 @@ export default class Precarga extends Phaser.Scene {
     this.load.image("enemigo2", "assets/images/enemy2.png");
     this.load.image("bullet", "assets/images/bullet.png");
     this.load.image("bullet2", "assets/images/bullet2.png");
+    this.load.audio("destruir", "assets/audio/destruir.wav");
+    this.load.audio("colisionBloque", "assets/audio/colisionBloque.mp3");
+    this.load.audio("elecciones", "assets/audio/elecciones.wav");
+    this.load.audio("BGM", "assets/audio/BGM.mp3");
     this.load.tilemapTiledJSON("nivel1", "assets/niveles/nivel1.json");
     this.load.tilemapTiledJSON("nivel2", "assets/niveles/nivel2.json");
     this.load.tilemapTiledJSON("nivel3", "assets/niveles/nivel3.json");
@@ -61,7 +65,12 @@ export default class Precarga extends Phaser.Scene {
     this.banderaSpain = this.add.image(330, 300, "spain").setScale(0.24);
     this.logoUnraf = this.add.image(275, 30, "unraf").setScale(0.065);
     this.botonPhaser = this.add.image(145, 500, "phaser").setScale(0.39);
+    this.sfx = this.sound.add("elecciones");
+    this.backgroundMusic = this.sound.add("BGM", { loop: true });
+    this.backgroundMusic.play();
 
+    this.events.on("stopMusic", this.detenerMusica, this);
+    this.events.on("playMusic", this.comenzarMusica, this);
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.anims.create({
@@ -94,16 +103,19 @@ export default class Precarga extends Phaser.Scene {
     this.banderaUsa
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
+        this.sfx.play();
         this.getTranslations(EN_US);
       });
     this.banderaBrasil
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
+        this.sfx.play();
         this.getTranslations(PT_BR);
       });
     this.banderaSpain
       .setInteractive({ useHandCursor: true })
       .on("pointerdown", () => {
+        this.sfx.play();
         this.getTranslations(ES_AR);
       });
     this.logoUnraf
@@ -119,6 +131,14 @@ export default class Precarga extends Phaser.Scene {
           "_blank"
         );
       });
+  }
+
+  detenerMusica() {
+    this.backgroundMusic.stop();
+  }
+
+  comenzarMusica() {
+    this.backgroundMusic.play();
   }
 
   arranqueMenu() {

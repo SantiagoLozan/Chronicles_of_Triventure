@@ -17,6 +17,11 @@ export default class HelloWorldScene extends Phaser.Scene {
     this.timeInSeconds || 0;
   }
 
+  preload() {
+    this.load.audio("ataqueEnemigo", "assets/audio/ataqueEnemigo.wav");
+    this.load.audio("colisionBloque", "assets/audio/colisionBloque.mp3");
+  }
+
   create() {
     const map = this.make.tilemap({ key: this.tiled });
     const capaFondo = map.addTilesetImage("conjuntoTiles", "grid", 16, 16);
@@ -37,8 +42,11 @@ export default class HelloWorldScene extends Phaser.Scene {
     plataformaLayer.setCollisionByProperty({ colision: true });
     fondoLayer.setCollisionByProperty({ colision: false });
 
+    this.destruirBullets = this.sound.add("destruir");
     this.crearAtaqueEnemigo();
     this.crearAtaquePersonaje();
+
+    this.bulletCol = this.sound.add("colisionBloque");
 
     this.player = new Jugador(this, 70, 550, "player", 5, 1, 1);
 
@@ -102,8 +110,6 @@ export default class HelloWorldScene extends Phaser.Scene {
       this
     );
 
-    
-
     // launch UI scene
     this.scene.launch("ui");
   }
@@ -134,7 +140,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       frame: 0,
       visible: false,
       active: false,
-      repeat: 100,
+      repeat: 300,
       setXY: {
         x: 400,
         y: 550,
@@ -169,7 +175,7 @@ export default class HelloWorldScene extends Phaser.Scene {
       frame: 0,
       visible: false,
       active: false,
-      repeat: 100,
+      repeat: 300,
       setXY: {
         x: 400,
         y: 450,
@@ -210,9 +216,11 @@ export default class HelloWorldScene extends Phaser.Scene {
     bullet.setActive(false);
     bullet.setVisible(false);
     bullet.destroy();
+    this.bulletCol.play();
   }
 
-  destroyBullets(bullet, bullet2){
+  destroyBullets(bullet, bullet2) {
+    this.destruirBullets.play();
     bullet.setActive(false);
     bullet.setVisible(false);
     bullet.destroy();
